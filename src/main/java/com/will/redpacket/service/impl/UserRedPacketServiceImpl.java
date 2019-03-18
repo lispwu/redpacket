@@ -30,7 +30,11 @@ public class UserRedPacketServiceImpl implements UserRedPacketService{
 
         //2.如果库存还有值，就开抢
         if(leftRedPacketNum > 0){
-            redPacketDAO.decreaseRedPacketById(redPacketId);
+            int update = redPacketDAO.decreaseRedPacketForVersion(redPacketId,redPacket.getVersion());
+            //如果数据没有修改，则说明其他线程已经修改过数据，则重新抢夺
+            if(update == 0){
+                return 0;
+            }
 
             UserRedPacket userRedPacket = UserRedPacket.builder().redPacketId(redPacketId).userId(userId).amount(redPacket.getUnitAmount()).remark("redPacket-" + redPacketId).build();
             userRedPacketDAO.save(userRedPacket);

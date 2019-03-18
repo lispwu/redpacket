@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -54,13 +55,15 @@ public class UserRedPacketController {
     public String grabRedPacketSimple(Long redPacketId){
         log.info("开始抢红包!");
 
-        long userId = 101;
+        Random rand = new Random();
+        long userId = rand.nextInt(100);
+
         int result = userRedPacketService.grapRedPacket(redPacketId,userId);
         if(result > 0){
-            log.info("抢到红包！");
+            log.info("{}-抢到红包！",userId);
         }else {
             log.info("没抢到红包！");
         }
-        return "抢红包活动结束！";
+        return "success";
     }
 }

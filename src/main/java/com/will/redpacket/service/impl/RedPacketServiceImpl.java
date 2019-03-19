@@ -27,4 +27,9 @@ public class RedPacketServiceImpl implements RedPacketService{
         return redPacketDAO.decreaseRedPacketById(id);
     }
 
+    @Override
+    @Transactional
+    public int refillStock(int stock, Long redPacketId) {
+        return redPacketDAO.refillStock(stock,redPacketId);
+    }
 }

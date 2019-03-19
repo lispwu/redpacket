@@ -17,4 +17,13 @@ public interface RedPacketService {
      * @return 影响条数.
      */
     int decreaseRedPacket(Long id);
+
+
+    /**
+     * 补充红包的库存
+     * @param stock 想要补充的库存数
+     * @param redPacketId
+     * @return
+     */
+    int refillStock(int stock,Long redPacketId);
 }

@@ -37,4 +37,15 @@ public interface RedPacketDAO extends CrudRepository<RedPacket,Long> {
     @Query("update RedPacket u set u.stock = u.stock - 1, u.version = u.version + 1 where u.id = ?1 and u.version = ?2")
     int decreaseRedPacketForVersion(Long id,int version);
 
+
+    /**
+     * 重新补充库存
+     * @param stock
+     * @param redPacketId
+     * @return
+     */
+    @Modifying
+    @Query("update RedPacket u set u.stock = ?1 where u.id = ?2")
+    int refillStock(int stock,Long redPacketId);
+
 }
